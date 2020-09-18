@@ -76,6 +76,7 @@ namespace Lab_2
         {
 
             string coded_m_1 = "трхшуеокйефхмптпдцсрхшхзчкм";
+            string coded_m_11 = "сжрссчп";
             string coded_m_2 = "сжрссчпббдуусхрогдожзенй";
             string test = "фпжисьиоссахилфиусс";
             string t = "аи";
@@ -83,7 +84,7 @@ namespace Lab_2
             List<string> bruted = new List<string>();
             List<List<char>> table = new List<List<char>>();
 
-            Bruteforce.FillUp(ref table,t, Alphabets.alph_2);
+            Bruteforce.FillUp(ref table, coded_m_11, Alphabets.alph_2);
             Bruteforce.Brute(ref bruted, 0, 0, table, "");
             using (System.IO.StreamWriter file =
             new System.IO.StreamWriter(@"E:\3 course (inst)\Defence X\bruted.txt"))
@@ -91,8 +92,9 @@ namespace Lab_2
                 foreach (string s in bruted)
                 {
                     file.WriteLine(s);
-                }               
+                }
             }
+            Console.ReadKey();
         }
         static void InitializeAlphabets()
         {
