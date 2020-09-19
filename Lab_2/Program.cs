@@ -1,27 +1,18 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Lab_2
 {
     static class Alphabets
     {
-        //+ё +ъ
-        public static List<char> alph_1;
-        //+ъ
-        public static List<char> alph_2;
-        //+ё
-        public static List<char> alph_3;
-        //
-        public static List<char> alph_4;
+        public static List<char> alph;
+
     }
     public static class Bruteforce
     {
-        public static void FillUp(ref List<List<char>> table,string message, List<char> alphabet)
+        public static void FillUp(ref List<List<char>> table, string message, List<char> alphabet)
         {
-            
+
             InitalizeList(ref table, message.Length);
             int index = 0;
             for (int i = 0; i < message.Length; i++)
@@ -29,7 +20,7 @@ namespace Lab_2
                 index = alphabet.IndexOf(message[i]);
                 for (int j = 0; j < 10; j++)
                 {
-                    if (index>= alphabet.Count)
+                    if (index >= alphabet.Count)
                     {
                         index = 0;
                     }
@@ -38,29 +29,30 @@ namespace Lab_2
                 }
             }
         }
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="i"> номер строки(буквы в слове)</param>
-        /// <param name="j">номер столбца (0-9)</param>
-        /// <param name="table"></param>
-        /// <param name="pos"></param>
-        public static void Brute(ref List<string> res,int i,int j,List<List<char>> table , string pos)
-        {
-            if (i < table.Count)
+        public static void BruteKey(ref List<string> res, List<List<char>> table, string message, int mul)
+        { 
+            int limit = 1;
+            for(int i = 0; i < mul; i++)
             {
-                for(int k = 0; k < 10; k++)
-                {
-                    Brute(ref res, i + 1,  k, table, pos+ table[i][k]);
-                }
-                return;
+                limit *= 10;
             }
-            else
+            for (int key_size = 0; key_size < limit; key_size++)
             {
+                string pos = "";
+                string key = "";
+                key = key_size.ToString().PadLeft(mul - 1, '0');
+                int h = 0;//key iterator
+                for (int g = 0; g < message.Length; g++)
+                {
+                    if (h + 1 > key.Length)
+                        h = 0;
+                    pos += table[g][Convert.ToInt32((key.Substring(h, 1)))];
+                    h++;
+                }
                 res.Add(pos);
                 Console.WriteLine(pos);
-                return;
             }
+
         }
         static void InitalizeList(ref List<List<char>> list, int size)
         {
@@ -76,18 +68,18 @@ namespace Lab_2
         {
 
             string coded_m_1 = "трхшуеокйефхмптпдцсрхшхзчкм";
-            string coded_m_11 = "уусхрог";
             string coded_m_2 = "сжрссчпббдуусхрогдожзенй";
             string test = "фпжисьиоссахилфиусс";
-            
-            InitializeAlphabets();
+
+            InitializeAlphabet();
             List<string> bruted = new List<string>();
             List<List<char>> table = new List<List<char>>();
 
-            Bruteforce.FillUp(ref table, coded_m_11, Alphabets.alph_2);
-            Bruteforce.Brute(ref bruted, 0, 0, table, "");
+            Bruteforce.FillUp(ref table, coded_m_1, Alphabets.alph);    
+            Bruteforce.BruteKey(ref bruted, table, coded_m_1, 6);//where 6 - assumed key length
+
             using (System.IO.StreamWriter file =
-            new System.IO.StreamWriter(@"E:\3 course (inst)\Defence X\bruted_middle.txt"))
+            new System.IO.StreamWriter(@"E:\3 course (inst)\Defence X\bruted_full.txt"))
             {
                 foreach (string s in bruted)
                 {
@@ -96,46 +88,9 @@ namespace Lab_2
             }
             Console.ReadKey();
         }
-        static void InitializeAlphabets()
-        {
-            Alphabets.alph_1 = new List<char>
-            {
-            'я',
-            'ю',
-            'э',
-            'ь',
-            'ы',
-            'ъ',
-            'щ',
-            'ш',
-            'ч',
-            'ц',
-            'х',
-            'ф',
-            'у',
-            'т',
-            'с',
-            'р',
-            'п',
-            'о',
-            'н',
-            'м',
-            'л',
-            'к',
-            'й',
-            'и',
-            'з',
-            'ж',
-            'ё',
-            'е',
-            'д',
-            'г',
-            'в',
-            'б',
-            'а',
-            ' '
-            };
-            Alphabets.alph_2 = new List<char>
+        static void InitializeAlphabet()
+        {   
+            Alphabets.alph = new List<char>
             {
             'я',
             'ю',
@@ -170,78 +125,7 @@ namespace Lab_2
             'б',
             'а',
             ' '
-            };
-            Alphabets.alph_3 = new List<char>
-            {
-            'я',
-            'ю',
-            'э',
-            'ь',
-            'ы',
-            'щ',
-            'ш',
-            'ч',
-            'ц',
-            'х',
-            'ф',
-            'у',
-            'т',
-            'с',
-            'р',
-            'п',
-            'о',
-            'н',
-            'м',
-            'л',
-            'к',
-            'й',
-            'и',
-            'з',
-            'ж',
-            'ё',
-            'е',
-            'д',
-            'г',
-            'в',
-            'б',
-            'а',
-            ' '
-            };
-            Alphabets.alph_4 = new List<char>
-            {
-            'я',
-            'ю',
-            'э',
-            'ь',
-            'ы',
-            'щ',
-            'ш',
-            'ч',
-            'ц',
-            'х',
-            'ф',
-            'у',
-            'т',
-            'с',
-            'р',
-            'п',
-            'о',
-            'н',
-            'м',
-            'л',
-            'к',
-            'й',
-            'и',
-            'з',
-            'ж',
-            'е',
-            'д',
-            'г',
-            'в',
-            'б',
-            'а',
-            ' '
-            };
+            };   
         }
     }
 }
