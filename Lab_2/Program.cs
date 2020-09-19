@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Text;
 
 namespace Lab_2
 {
@@ -75,15 +76,15 @@ namespace Lab_2
             List<string> bruted = new List<string>();
             List<List<char>> table = new List<List<char>>();
 
-            Bruteforce.FillUp(ref table, coded_m_1, Alphabets.alph);    
-            Bruteforce.BruteKey(ref bruted, table, coded_m_1, 6);//where 6 - assumed key length
+            Bruteforce.FillUp(ref table, coded_m_2, Alphabets.alph);    
+            Bruteforce.BruteKey(ref bruted, table, coded_m_2, 4);//where 6 - assumed key length
 
             using (System.IO.StreamWriter file =
-            new System.IO.StreamWriter(@"E:\3 course (inst)\Defence X\bruted_full.txt"))
+            new System.IO.StreamWriter(@"E:\3 course (inst)\Defence X\bruted_full_2_4.txt"))
             {
                 foreach (string s in bruted)
                 {
-                    file.WriteLine(s);
+                    file.WriteLine(s, Encoding.ASCII);
                 }
             }
             Console.ReadKey();
