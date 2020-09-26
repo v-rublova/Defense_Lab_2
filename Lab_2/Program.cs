@@ -75,12 +75,19 @@ namespace Lab_2
         {
             InitializeAlphabet();
             string message_1 = "зустріч призначена в сім";
-            string message_2 = "у судді проникливий розум;";
+            string message_2 = "у судді проникливий розум";
             string message_3 = "спеціальний підрозділ";
+            string FIO = "";
 
             Console.WriteLine(Gronsfeld_Cipher.Code(message_1, "1601", Alphabets.alph_ukr));
-            Console.WriteLine(Gronsfeld_Cipher.Decode(Gronsfeld_Cipher.Code(message_1, "1601", Alphabets.alph_ukr), "1601", Alphabets.alph_ukr));
-            Console.WriteLine(Gronsfeld_Cipher.Decode(new List<byte> { 4, 6, 6, 8, 4, 6 }, new List<byte> { 1, 2, 8 }, Alphabets.alph_numbers));
+            Console.WriteLine(Gronsfeld_Cipher.Code(message_2, "06754", Alphabets.alph_ukr));
+            Console.WriteLine(Gronsfeld_Cipher.Code(message_3, "2345", Alphabets.alph_ukr));
+
+            //Console.WriteLine(Gronsfeld_Cipher.Decode(Gronsfeld_Cipher.Code(message_1, "1601", Alphabets.alph_ukr), "1601", Alphabets.alph_ukr));
+            string fio_key = Gronsfeld_Cipher.Decode(new List<byte> { 4, 6, 6, 8, 4, 6 }, new List<byte> { 1, 2, 8 }, Alphabets.alph_numbers);
+            Console.WriteLine(fio_key);
+            Console.WriteLine(Gronsfeld_Cipher.Code(FIO, fio_key, Alphabets.alph));
+
             Console.ReadKey();
         }
         static void InitializeAlphabet()
