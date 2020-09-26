@@ -24,31 +24,13 @@ namespace Lab_2
                 int distance = alphabet.IndexOf(message[i]) - shift;
                 if (distance < 0)
                 {
-                    distance = alphabet.Count - shift;
+                    distance = alphabet.Count + distance;
                 }
                 coded += alphabet[distance];
                 key_iterator++;
             }
             return coded;
-        }
-        public static string Decode(string coded_message, string key, List<char> alphabet)
-        {
-            string decoded = "";
-            int key_iterator = 0;
-            for (int i = 0; i < coded_message.Length; i++)
-            {
-                if (key_iterator >= key.Length) key_iterator = 0;
-                int shift = Convert.ToInt32(key.Substring(key_iterator, 1));
-                int distance = alphabet.IndexOf(coded_message[i]) + shift;
-                if (distance >= alphabet.Count)
-                {
-                    distance = distance - alphabet.Count - 1;
-                }
-                decoded += alphabet[distance];
-                key_iterator++;
-            }
-            return decoded;
-        }
+        } 
         public static string Decode(List<byte> coded_message, List<byte> key, List<byte> alphabet)
         {
             string decoded = "";
@@ -60,7 +42,7 @@ namespace Lab_2
                 int distance = alphabet.IndexOf(coded_message[i]) + shift;
                 if (distance >= alphabet.Count)
                 {
-                    distance = distance - alphabet.Count-1;
+                    distance = distance - alphabet.Count;
                 }
                 decoded += alphabet[distance];
                 key_iterator++;
@@ -83,11 +65,17 @@ namespace Lab_2
             Console.WriteLine(Gronsfeld_Cipher.Code(message_2, "06754", Alphabets.alph_ukr));
             Console.WriteLine(Gronsfeld_Cipher.Code(message_3, "234", Alphabets.alph_ukr));
 
-            //Console.WriteLine(Gronsfeld_Cipher.Decode(Gronsfeld_Cipher.Code(message_1, "1601", Alphabets.alph_ukr), "1601", Alphabets.alph_ukr));
+            
             string fio_key = Gronsfeld_Cipher.Decode(new List<byte> { 4, 6, 6, 8, 4, 6 }, new List<byte> { 1, 2, 8 }, Alphabets.alph_numbers);
             Console.WriteLine(fio_key);
             Console.WriteLine(Gronsfeld_Cipher.Code(FIO, fio_key, Alphabets.alph));
-
+            List<char> copy = new List<char>();
+            for (int i = 0; i < Alphabets.alph.Count; i++)
+            {
+                copy.Add(Alphabets.alph[i]);
+            }
+            copy.Reverse();
+            Console.WriteLine(Gronsfeld_Cipher.Code(Gronsfeld_Cipher.Code(FIO, fio_key, Alphabets.alph), fio_key, copy));
             Console.ReadKey();
         }
         static void InitializeAlphabet()
