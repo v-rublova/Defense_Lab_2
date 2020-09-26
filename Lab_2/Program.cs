@@ -81,7 +81,7 @@ namespace Lab_2
 
             Console.WriteLine(Gronsfeld_Cipher.Code(message_1, "1601", Alphabets.alph_ukr));
             Console.WriteLine(Gronsfeld_Cipher.Code(message_2, "06754", Alphabets.alph_ukr));
-            Console.WriteLine(Gronsfeld_Cipher.Code(message_3, "2345", Alphabets.alph_ukr));
+            Console.WriteLine(Gronsfeld_Cipher.Code(message_3, "234", Alphabets.alph_ukr));
 
             //Console.WriteLine(Gronsfeld_Cipher.Decode(Gronsfeld_Cipher.Code(message_1, "1601", Alphabets.alph_ukr), "1601", Alphabets.alph_ukr));
             string fio_key = Gronsfeld_Cipher.Decode(new List<byte> { 4, 6, 6, 8, 4, 6 }, new List<byte> { 1, 2, 8 }, Alphabets.alph_numbers);
